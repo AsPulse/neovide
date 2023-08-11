@@ -201,13 +201,11 @@ impl RenderedWindow {
 
         let mut background_paint = Paint::default();
         background_paint.set_blend_mode(BlendMode::Src);
-        background_paint.set_alpha(default_background.a());
-
         let save_layer_rec = SaveLayerRec::default()
             .bounds(pixel_region)
             .paint(&background_paint);
         canvas.save_layer(&save_layer_rec);
-        canvas.clear(default_background.with_a(255));
+        canvas.clear(default_background);
         for (matrix, line) in &lines {
             let line = line.lock().unwrap();
             if let Some(background_picture) = &line.background_picture {
